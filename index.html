@@ -30,6 +30,7 @@ h1{font-size:clamp(24px,5vw,40px);font-weight:800;letter-spacing:.03em;line-heig
 .pr{font-size:22px;font-weight:800;letter-spacing:-.01em} .pr small{font-size:12px;margin-left:2px}
 .tag{position:absolute;top:6px;left:6px;font-size:11px;font-weight:800;border-radius:4px;padding:1px 6px;color:#fff}
 .up{background:var(--red)} .new{background:var(--ink)}
+.was{font-size:12px;color:var(--sub);margin-bottom:-6px} .was s{text-decoration-thickness:1px}
 section{padding:22px 0;border-top:1px solid var(--line)}
 h2{font-size:20px;font-weight:800;margin-bottom:10px}
 ol,ul{padding-left:1.4em} li{margin:4px 0}
@@ -69,7 +70,7 @@ function draw(){
    .map(c=>`<div class="card">${c.diff>0?'<span class="tag up">値上げ</span>':c.isnew?'<span class="tag new">新着</span>':''}
    ${c.img?`<img src="${c.img}" alt="${esc(c.name)}" loading="lazy">`:'<div class="noimg">画像なし</div>'}
    <div class="nm">${esc(c.name)}</div><div class="no">${esc(c.no)} <span class="rb">${esc(c.rar)}</span></div>
-   <div class="pr">${yen(c.price)}<small>円</small></div></div>`).join("")||'<p>該当するカードがありません</p>';
+   ${c.diff>0?`<div class="was">前回 <s>${yen(c.price-c.diff)}円</s></div>`:''}<div class="pr">${yen(c.price)}<small>円</small></div></div>`).join("")||'<p>該当するカードがありません</p>';
 }
 document.getElementById("bar").addEventListener("click",ev=>{
   const b=ev.target.closest("button"); if(!b) return;
